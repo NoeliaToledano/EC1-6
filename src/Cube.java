@@ -36,4 +36,14 @@ public class Cube implements Cloneable {
     public void setBACK(int[][] BACK) {
         this.BACK = BACK;
     }
+    public void moveL(int n){
+        int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
+        for(int i=0;i<BACK.length;i++){
+            BACK[i][n]=DOWN[i][n];
+            DOWN[i][n]=FRONT[i][n];
+            FRONT[i][n]=UP[UP.length-i-1][UP.length-1-n];
+            UP[UP.length-i-1][UP.length-1-n]=auxB[i][n];
+
+        }
+    }
 }
