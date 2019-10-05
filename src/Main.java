@@ -1,5 +1,4 @@
 import java.io.*;
-
 import com.google.gson.*;
 
 
@@ -12,7 +11,7 @@ public class Main {
             Cube cube = gson.fromJson(reader, Cube.class);
             System.out.println(cube);
             System.out.println("--------------------------------");
-            cube.moveL(2);
+            cube.moved(0);
             System.out.println(cube);
         } catch (IOException e) {
             e.printStackTrace();
