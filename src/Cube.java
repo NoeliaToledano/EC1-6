@@ -7,9 +7,7 @@ public class Cube implements Cloneable {
     private int[][] LEFT;
     private int[][] RIGHT;
     private int[][] UP;
-    private int n;
-
-
+    private int size;
     /*
         Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
             this.back=back;
@@ -22,6 +20,63 @@ public class Cube implements Cloneable {
         }
     
      */
+
+    public int[][] getBACK() {
+        return BACK;
+    }
+
+    public int[][] getDOWN() {
+        return DOWN;
+    }
+
+    public int[][] getFRONT() {
+        return FRONT;
+    }
+
+    public int[][] getLEFT() {
+        return LEFT;
+    }
+
+    public int[][] getRIGHT() {
+        return RIGHT;
+    }
+
+    public int[][] getUP() {
+        return UP;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setBACK(int[][] BACK) {
+        this.BACK = BACK;
+    }
+
+    public void setDOWN(int[][] DOWN) {
+        this.DOWN = DOWN;
+    }
+
+    public void setFRONT(int[][] FRONT) {
+        this.FRONT = FRONT;
+    }
+
+    public void setLEFT(int[][] LEFT) {
+        this.LEFT = LEFT;
+    }
+
+    public void setRIGHT(int[][] RIGHT) {
+        this.RIGHT = RIGHT;
+    }
+
+    public void setUP(int[][] UP) {
+        this.UP = UP;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public String toString() {
         return " BACK= " + Arrays.deepToString(BACK) +
                 "\n DOWN= " + Arrays.deepToString(DOWN) +
@@ -30,16 +85,10 @@ public class Cube implements Cloneable {
                 "\n RIGHT=" + Arrays.deepToString(RIGHT) +
                 "\n UP=   " + Arrays.deepToString(UP);
     }
-
-
-
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-    public void setBACK(int[][] BACK) {
-        this.BACK = BACK;
-    }
     public void moveL(int n){
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         for(int i=0;i<BACK.length;i++){
@@ -60,6 +109,7 @@ public class Cube implements Cloneable {
     }
     public void movel(int n){
         int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
+
         for(int i=0;i<BACK.length;i++){
 
             DOWN[i][n]=BACK[i][n];
@@ -158,6 +208,7 @@ public class Cube implements Cloneable {
 
         }
     }
+
     private int[][] rotateClockWise(int[][] array) {
         int size = array.length;
         int[][] aux = new int[size][size];
@@ -178,4 +229,5 @@ public class Cube implements Cloneable {
 
         return aux;
     }
+
 }

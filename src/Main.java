@@ -7,16 +7,18 @@ public class Main {
 
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("cubo1.json")) {
+        try (Reader reader = new FileReader("cubo2.json")) {
             Cube cube = gson.fromJson(reader, Cube.class);
+
             System.out.println(cube);
+
             System.out.println("--------------------------------");
-            cube.moved(0);
+
+            cube.moveL(0);
+
             System.out.println(cube);
         } catch (IOException e) {
             e.printStackTrace();
-
-
         }
     }
 }
