@@ -93,12 +93,14 @@ public class Cube implements Cloneable {
         char c;
         char num;
         int n;
+        setSize(BACK.length-1);
+        System.out.println("El tamaño es:" + size);
         for(int i = 0; i<mov.length(); i++){
 
            c = mov.charAt(i);
            num = mov.charAt(i+1);
            n= Character.getNumericValue(num);
-           if((n>=0) && (n<=2)){
+           if((c == 'B' || c == 'b' ||  c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n<=size && n>=0)){
 
                 switch (c) {
 
@@ -132,24 +134,25 @@ public class Cube implements Cloneable {
 
     }
     public void moveL(int n){
+
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         for(int i=0;i<BACK.length;i++){
             BACK[i][n]=DOWN[i][n];
             DOWN[i][n]=FRONT[i][n];
             FRONT[i][n]=UP[UP.length-i-1][UP.length-1-n];
             UP[UP.length-i-1][UP.length-1-n]=auxB[i][n];
-        }
-        switch (n){
-            case 0:
-                LEFT=rotateClockWise(LEFT);
-                break;
-            case 2:
-                RIGHT=rotateClockWise(RIGHT);
-                break;
 
         }
+        if(n==0){
+            LEFT=rotateClockWise(LEFT);
+        }else if(n==size){
+            RIGHT=rotateClockWise(RIGHT);
+        }
+
+
     }
     public void movel(int n){
+
         int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
 
         for(int i=0;i<BACK.length;i++){
@@ -160,18 +163,19 @@ public class Cube implements Cloneable {
             FRONT[i][n]=auxD[i][n];
 
         }
-        switch (n){
-            case 0:
-                LEFT=rotateAntiClockWise(LEFT);
-                break;
-            case 2:
-                RIGHT=rotateAntiClockWise(RIGHT);
-                break;
+        if(n==0){
+            LEFT=rotateAntiClockWise(LEFT);
+        }else if(n==size){
+            RIGHT=rotateAntiClockWise(RIGHT);
 
         }
+
+
+
     }
 
     public void moveD(int n){
+
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
 
@@ -182,17 +186,16 @@ public class Cube implements Cloneable {
             RIGHT[i][n]=auxB[BACK.length-n-1][i];
 
         }
-        switch (n){
-            case 0:
-                DOWN=rotateClockWise(DOWN);
-                break;
-            case 2:
-                UP=rotateClockWise(UP);
-                break;
+        if(n==0){
+            DOWN=rotateClockWise(DOWN);
+        }else if(n==size){
+            UP=rotateClockWise(UP);
 
         }
+
     }
     public void moved(int n){
+
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
         for(int i=0;i<BACK.length;i++){
             LEFT[LEFT.length-1-i][LEFT.length-1-n]=BACK[BACK.length-1-n][i];
@@ -202,15 +205,13 @@ public class Cube implements Cloneable {
 
 
         }
-        switch (n){
-            case 0:
-                DOWN=rotateAntiClockWise(DOWN);
-                break;
-            case 2:
-                UP=rotateAntiClockWise(UP);
-                break;
+        if(n==0){
+            DOWN=rotateAntiClockWise(DOWN);
+        }else if(n==size){
+            UP=rotateAntiClockWise(UP);
 
         }
+
     }
     public void moveB(int n){
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
@@ -221,17 +222,16 @@ public class Cube implements Cloneable {
             DOWN[n][i]=auxL[n][i];
 
         }
-        switch (n){
-            case 0:
-                BACK=rotateClockWise(BACK);
-                break;
-            case 2:
-                FRONT=rotateClockWise(FRONT);
-                break;
+        if(n==0){
+            BACK=rotateClockWise(BACK);
+        }else if(n==size){
+            FRONT=rotateClockWise(FRONT);
 
         }
+
     }
     public void moveb(int n){
+
         int[][] auxU = Arrays.stream(UP).map(int[]::clone).toArray(int[][]::new);
         for(int i=0;i<BACK.length;i++){
             UP[n][i]=LEFT[n][i];
@@ -240,15 +240,12 @@ public class Cube implements Cloneable {
             RIGHT[n][i]=auxU[n][i];
 
         }
-        switch (n){
-            case 0:
-                BACK=rotateAntiClockWise(BACK);
-                break;
-            case 2:
-                FRONT=rotateAntiClockWise(FRONT);
-                break;
-
+        if(n==0){
+            BACK=rotateAntiClockWise(BACK);
+        }else if(n==size){
+            FRONT=rotateAntiClockWise(FRONT);
         }
+
     }
 
     private int[][] rotateClockWise(int[][] array) {
