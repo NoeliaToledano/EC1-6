@@ -89,6 +89,48 @@ public class Cube implements Cloneable {
         return super.clone();
     }
 
+    public void movimientos(String mov){
+        char c;
+        char num;
+        int n;
+        for(int i = 0; i<mov.length(); i++){
+
+           c = mov.charAt(i);
+           num = mov.charAt(i+1);
+           n= Character.getNumericValue(num);
+           if((n>=0) && (n<=2)){
+
+                switch (c) {
+
+                    case 'L':
+                        moveL(n);
+                        break;
+                    case 'l':
+                        movel(n);
+                        break;
+                    case 'D':
+                        moveD(n);
+                        break;
+                    case 'd':
+                        moved(n);
+                        break;
+                    case 'B':
+                        moveB(n);
+                        break;
+                    case 'b':
+                        moveb(n);
+                        break;
+
+                }
+
+            }else{
+
+               System.out.println("No podemos realizar este movimiento:" + c + n);
+           }
+            i++;
+        }
+
+    }
     public void moveL(int n){
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         for(int i=0;i<BACK.length;i++){

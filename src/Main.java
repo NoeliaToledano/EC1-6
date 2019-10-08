@@ -1,6 +1,6 @@
 import java.io.*;
 import com.google.gson.*;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,8 +13,10 @@ public class Main {
             System.out.println(cube);
 
             System.out.println("--------------------------------");
-
-            cube.moveL(0);
+            System.out.println("Por favor, inserte los movimientos :");
+            Scanner scan = new Scanner(System.in);
+            String movimientos = scan.next();
+            cube.movimientos(movimientos);
 
             System.out.println(cube);
         } catch (IOException e) {
