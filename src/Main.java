@@ -19,6 +19,14 @@ public class Main {
             cube.movimientos(movimientos);
 
             System.out.println(cube);
+
+            System.out.println("Por favor, inserte los movimientos :");
+             scan = new Scanner(System.in);
+             movimientos = scan.next();
+            cube.movimientos(movimientos);
+
+            System.out.println(cube);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

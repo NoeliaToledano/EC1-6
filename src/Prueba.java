@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.awt.*;
+import java.util.Scanner;
 
 public class Prueba extends JFrame {
     public Prueba(){
@@ -28,7 +29,15 @@ public class Prueba extends JFrame {
             canvas.setCube(cube);
             application.getContentPane().add(canvas);
             application.setVisible(true);
-            System.out.println(cube);
+
+
+            Scanner scan = new Scanner(System.in);
+            String movimientos = scan.next();
+            cube.movimientos(movimientos);
+
+            application.getContentPane().add(canvas);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

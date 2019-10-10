@@ -20,7 +20,9 @@ public class MyCanvas extends JComponent {
         paintFace(g, 260, 540, cube.getFRONT());
 
     }
+    public void paintCube(Cube cube){
 
+    }
     public void paintFace(Graphics g, int initX, int initY, int[][] cara) {
         int n=cara.length;
         int x=0;

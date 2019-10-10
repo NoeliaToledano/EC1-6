@@ -1,4 +1,9 @@
 import java.util.Arrays;
+//todo corregir movimientos
+//todo implentar md5
+//todo hacer bien el clon
+//todo leer bien el string de movimientos
+//todo metodo movimiento invertido
 
 public class Cube implements Cloneable {
     private int[][] BACK;
@@ -94,7 +99,6 @@ public class Cube implements Cloneable {
         char num;
         int n;
         setSize(BACK.length-1);
-        System.out.println("El tamaño es:" + size);
         for(int i = 0; i<mov.length(); i++){
 
            c = mov.charAt(i);
