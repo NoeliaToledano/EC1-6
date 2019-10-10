@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.awt.*;
 import java.util.Scanner;
-
+//todo colocar las clases
+//todo eliminar esta clase y crear clases de dibujo..
+//todo Facilitar la impresión
+//
 public class Prueba extends JFrame {
     public Prueba(){
         super("Prueba gráfica");

@@ -1,9 +1,9 @@
 import java.util.Arrays;
-//todo corregir movimientos
-//todo implentar md5
-//todo hacer bien el clon
-//todo leer bien el string de movimientos
-//todo metodo movimiento invertido
+//todo corregir movimientos Noelia
+//todo implentar md5 Pablo
+//todo hacer bien el clon Pablo
+//todo leer bien el string de movimientos Manu
+//todo metodo movimiento invertido Manu
 
 public class Cube implements Cloneable {
     private int[][] BACK;
