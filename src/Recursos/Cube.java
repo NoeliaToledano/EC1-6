@@ -1,3 +1,5 @@
+package Recursos;
+import Presentation.*;
 import java.util.Arrays;
 //todo corregir movimientos Noelia
 //todo implentar md5 Pablo
@@ -14,7 +16,7 @@ public class Cube implements Cloneable {
     private int[][] UP;
     private int size;
     /*
-        Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
+        Recursos.Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
             this.back=back;
             this.down=down;
             this.front=front;
@@ -89,6 +91,13 @@ public class Cube implements Cloneable {
                 "\n LEFT= " + Arrays.deepToString(LEFT) +
                 "\n RIGHT=" + Arrays.deepToString(RIGHT) +
                 "\n UP=   " + Arrays.deepToString(UP);
+    }
+
+    public void paint(GUIForm frame){
+        MyCanvas canvas = new MyCanvas();
+        canvas.setCube(this);
+        frame.getContentPane().add(canvas);
+        frame.setVisible(true);
     }
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

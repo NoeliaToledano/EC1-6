@@ -1,3 +1,7 @@
+package Presentation;
+
+import Recursos.Cube;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,9 +22,6 @@ public class MyCanvas extends JComponent {
         paintFace(g, 510, 290, cube.getRIGHT());
         paintFace(g, 760, 290, cube.getUP());
         paintFace(g, 260, 540, cube.getFRONT());
-
-    }
-    public void paintCube(Cube cube){
 
     }
     public void paintFace(Graphics g, int initX, int initY, int[][] cara) {
