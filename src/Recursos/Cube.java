@@ -1,10 +1,11 @@
 package Recursos;
 import Presentation.*;
+
+import javax.print.attribute.IntegerSyntax;
 import java.util.Arrays;
 //todo corregir movimientos Noelia
 //todo implentar md5 Pablo
 //todo hacer bien el clon Pablo
-//todo leer bien el string de movimientos Manu
 //todo metodo movimiento invertido Manu
 
 public class Cube implements Cloneable {
@@ -93,59 +94,70 @@ public class Cube implements Cloneable {
                 "\n UP=   " + Arrays.deepToString(UP);
     }
 
-    public void paint(GUIForm frame){
+    public void paint(GUIForm frame) {
         MyCanvas canvas = new MyCanvas();
         canvas.setCube(this);
         frame.getContentPane().add(canvas);
         frame.setVisible(true);
     }
+
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
-    public void movimientos(String mov){
+    public void movimientos(String ordenes) {
         char c;
         char num;
         int n;
-        setSize(BACK.length-1);
-        for(int i = 0; i<mov.length(); i++){
+        setSize(BACK.length - 1);
 
-           c = mov.charAt(i);
-           num = mov.charAt(i+1);
-           n= Character.getNumericValue(num);
-           if((c == 'B' || c == 'b' ||  c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n<=size && n>=0)){
+        String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
+        try {
+            for (int i = 0; i < mov.length; i++) {
+                String[] part = mov[i].split("(?<=\\D)(?=\\d)");
+                c = part[0].charAt(0);
+                n = Integer.parseInt(part[1]);
 
-                switch (c) {
+                if ((c == 'B' || c == 'b' || c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n <= size && n >= 0)) {
 
-                    case 'L':
-                        moveL(n);
-                        break;
-                    case 'l':
-                        movel(n);
-                        break;
-                    case 'D':
-                        moveD(n);
-                        break;
-                    case 'd':
-                        moved(n);
-                        break;
-                    case 'B':
-                        moveB(n);
-                        break;
-                    case 'b':
-                        moveb(n);
-                        break;
+                    switch (c) {
 
+                        case 'L':
+                            moveL(n);
+                            break;
+                        case 'l':
+                            movel(n);
+                            break;
+                        case 'D':
+                            moveD(n);
+                            break;
+                        case 'd':
+                            moved(n);
+                            break;
+                        case 'B':
+                            moveB(n);
+                            break;
+                        case 'b':
+                            moveb(n);
+                            break;
+
+                    }
+
+                } else {
+
+                    System.out.println("El movimiento: " + c + n + " no existe.");
                 }
+            }
 
-            }else{
-
-               System.out.println("No podemos realizar este movimiento:" + c + n);
-           }
-            i++;
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }catch(NumberFormatException e){
+            System.out.println("Set de instrucciones mal declarado.");
         }
-
     }
+
+
+
     public void moveL(int n){
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
