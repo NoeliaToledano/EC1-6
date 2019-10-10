@@ -1,11 +1,13 @@
 import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 //todo corregir movimientos Noelia
-//todo implentar md5 Pablo
-//todo hacer bien el clon Pablo
 //todo leer bien el string de movimientos Manu
 //todo metodo movimiento invertido Manu
 
-public class Cube implements Cloneable {
+public class Cube {
     private int[][] BACK;
     private int[][] DOWN;
     private int[][] FRONT;
@@ -13,71 +15,57 @@ public class Cube implements Cloneable {
     private int[][] RIGHT;
     private int[][] UP;
     private int size;
-    /*
-        Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
-            this.back=back;
-            this.down=down;
-            this.front=front;
-            this.left=left;
-            this.right=right;
-            this.up=up;
+
+    Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up) {
+        this.BACK = back;
+        this.DOWN = down;
+        this.FRONT = front;
+        this.LEFT = left;
+        this.RIGHT = right;
+        this.UP = up;
+        this.size = BACK.length - 1;
     
         }
-    
-     */
 
     public int[][] getBACK() {
         return BACK;
     }
-
     public int[][] getDOWN() {
         return DOWN;
     }
-
     public int[][] getFRONT() {
         return FRONT;
     }
-
     public int[][] getLEFT() {
         return LEFT;
     }
-
     public int[][] getRIGHT() {
         return RIGHT;
     }
-
     public int[][] getUP() {
         return UP;
     }
-
     public int getSize() {
         return size;
     }
-
     public void setBACK(int[][] BACK) {
         this.BACK = BACK;
     }
-
     public void setDOWN(int[][] DOWN) {
         this.DOWN = DOWN;
     }
-
     public void setFRONT(int[][] FRONT) {
         this.FRONT = FRONT;
     }
-
     public void setLEFT(int[][] LEFT) {
         this.LEFT = LEFT;
     }
-
     public void setRIGHT(int[][] RIGHT) {
         this.RIGHT = RIGHT;
     }
-
     public void setUP(int[][] UP) {
         this.UP = UP;
     }
-
     public void setSize(int size) {
         this.size = size;
     }
@@ -90,15 +78,23 @@ public class Cube implements Cloneable {
                 "\n RIGHT=" + Arrays.deepToString(RIGHT) +
                 "\n UP=   " + Arrays.deepToString(UP);
     }
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+
+    public Cube clone() {
+        int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxF = Arrays.stream(FRONT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxR = Arrays.stream(RIGHT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxU = Arrays.stream(UP).map(int[]::clone).toArray(int[][]::new);
+        Cube auxCube = new Cube(auxB, auxD, auxF, auxL, auxR, auxU);
+        return auxCube;
     }
 
     public void movimientos(String mov){
         char c;
         char num;
         int n;
-        setSize(BACK.length-1);
+
         for(int i = 0; i<mov.length(); i++){
 
            c = mov.charAt(i);
@@ -177,7 +173,6 @@ public class Cube implements Cloneable {
 
 
     }
-
     public void moveD(int n){
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
@@ -273,4 +268,25 @@ public class Cube implements Cloneable {
         return aux;
     }
 
+    public String toMD5() {
+        String cubeString = this.toLineString();
+
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] hashInBytes = md.digest(cubeString.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
+    public String toLineString() {
+        return this.toString().replaceAll("[^0-6]", "");
+    }
 }
