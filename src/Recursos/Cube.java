@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 
 import java.util.Arrays;
-//todo corregir movimientos Noelia
-//todo metodo movimiento invertido Manu
+
 
 public class Cube implements Cloneable {
     private int[][] BACK;

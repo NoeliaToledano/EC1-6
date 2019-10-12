@@ -27,8 +27,9 @@ public class Main {
                 String movimiento = scan.next();
                 cube.movimientos(movimiento);
 
-                cube.movimientosInvertidos(movimiento);
+                //cube.movimientosInvertidos(movimiento);
                 cube.paint(frame);
+                System.out.println(cube);
 
             }
 
