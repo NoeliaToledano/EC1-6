@@ -12,7 +12,7 @@ public class Main {
 
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("cubo2.json")) {
+        try (Reader reader = new FileReader("cubo10x10.json")) {
             Cube cube = gson.fromJson(reader, Cube.class);
 
 

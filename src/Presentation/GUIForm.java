@@ -13,9 +13,8 @@ public class GUIForm extends JFrame{
     public GUIForm(){
         super("Rubik");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1080,800);
+        setSize(1030,850);
         getContentPane().add(panel1);
-
 
     }
 

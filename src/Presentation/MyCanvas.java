@@ -57,7 +57,10 @@ public class MyCanvas extends JComponent {
                         break;
 
                 }
+
                 g.fillRect(pixelx, pixely, 240 / n, 240 / n);
+                g.setColor(Color.BLACK);
+                g.drawRect(pixelx, pixely, 240 / n, 240 / n);
             }
 
         }

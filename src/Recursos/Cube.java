@@ -1,11 +1,12 @@
 package Recursos;
 import Presentation.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import javax.print.attribute.IntegerSyntax;
+
 import java.util.Arrays;
 //todo corregir movimientos Noelia
-//todo implentar md5 Pablo
-//todo hacer bien el clon Pablo
 //todo metodo movimiento invertido Manu
 
 public class Cube implements Cloneable {
@@ -16,18 +17,17 @@ public class Cube implements Cloneable {
     private int[][] RIGHT;
     private int[][] UP;
     private int size;
-    /*
-        Recursos.Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
-            this.back=back;
-            this.down=down;
-            this.front=front;
-            this.left=left;
-            this.right=right;
-            this.up=up;
-    
+
+        Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
+            this.BACK = back;
+            this.DOWN = down;
+            this.FRONT = front;
+            this.LEFT = left;
+            this.RIGHT = right;
+            this.UP = up;
+            this.size = BACK.length - 1;
+
         }
-    
-     */
 
     public int[][] getBACK() {
         return BACK;
@@ -101,16 +101,21 @@ public class Cube implements Cloneable {
         frame.setVisible(true);
     }
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Cube clone() {
+        int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxF = Arrays.stream(FRONT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxR = Arrays.stream(RIGHT).map(int[]::clone).toArray(int[][]::new);
+        int[][] auxU = Arrays.stream(UP).map(int[]::clone).toArray(int[][]::new);
+        Cube auxCube = new Cube(auxB, auxD, auxF, auxL, auxR, auxU);
+        return auxCube;
     }
 
     public void movimientos(String ordenes) {
         char c;
         char num;
         int n;
-        setSize(BACK.length - 1);
-
         String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
         try {
             for (int i = 0; i < mov.length; i++) {
@@ -294,4 +299,25 @@ public class Cube implements Cloneable {
         return aux;
     }
 
+    public String toMD5() {
+        String cubeString = this.toLineString();
+
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] hashInBytes = md.digest(cubeString.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
+    public String toLineString() {
+        return this.toString().replaceAll("[^0-6]", "");
+    }
 }
