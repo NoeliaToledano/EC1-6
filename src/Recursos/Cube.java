@@ -143,7 +143,6 @@ public class Cube implements Cloneable {
 
         try {
             for (int i = 0; i < mov.length; i++) {
-                System.out.println(mov[i]);
                 String[] part = mov[i].split("(?<=\\D)(?=\\d)");
                 c = part[0].charAt(0);
                 n = Integer.parseInt(part[1]);
