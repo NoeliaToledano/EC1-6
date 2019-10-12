@@ -112,46 +112,22 @@ public class Cube implements Cloneable {
         return auxCube;
     }
 
-    public void movimientos(String ordenes) {
+    public void movimientosInvertidos(String ordenes){
         char c;
-        char num;
         int n;
         String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
         try {
-            for (int i = 0; i < mov.length; i++) {
+            for (int i = mov.length-1; i >= 0; i--) {
                 String[] part = mov[i].split("(?<=\\D)(?=\\d)");
                 c = part[0].charAt(0);
                 n = Integer.parseInt(part[1]);
 
-                if ((c == 'B' || c == 'b' || c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n <= size && n >= 0)) {
-
-                    switch (c) {
-
-                        case 'L':
-                            moveL(n);
-                            break;
-                        case 'l':
-                            movel(n);
-                            break;
-                        case 'D':
-                            moveD(n);
-                            break;
-                        case 'd':
-                            moved(n);
-                            break;
-                        case 'B':
-                            moveB(n);
-                            break;
-                        case 'b':
-                            moveb(n);
-                            break;
-
-                    }
-
-                } else {
-
-                    System.out.println("El movimiento: " + c + n + " no existe.");
+                if(Character.isUpperCase(c)){
+                    c =Character.toLowerCase(c);
+                }else{
+                    c =Character.toUpperCase(c);
                 }
+                aplicarMovimiento(c,n);
             }
 
         }catch(IndexOutOfBoundsException e){
@@ -161,7 +137,58 @@ public class Cube implements Cloneable {
         }
     }
 
+    public void movimientos(String ordenes) {
+        char c;
+        int n;
+        String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
 
+        try {
+            for (int i = 0; i < mov.length; i++) {
+                System.out.println(mov[i]);
+                String[] part = mov[i].split("(?<=\\D)(?=\\d)");
+                c = part[0].charAt(0);
+                n = Integer.parseInt(part[1]);
+                aplicarMovimiento(c,n);
+            }
+
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }catch(NumberFormatException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }
+    }
+
+    private void aplicarMovimiento(char c,int n){
+        if ((c == 'B' || c == 'b' || c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n <= size && n >= 0)) {
+
+            switch (c) {
+
+                case 'L':
+                    moveL(n);
+                    break;
+                case 'l':
+                    movel(n);
+                    break;
+                case 'D':
+                    moveD(n);
+                    break;
+                case 'd':
+                    moved(n);
+                    break;
+                case 'B':
+                    moveB(n);
+                    break;
+                case 'b':
+                    moveb(n);
+                    break;
+
+            }
+
+        } else {
+
+            System.out.println("El movimiento: " + c + n + " no existe.");
+        }
+    }
 
     public void moveL(int n){
 
