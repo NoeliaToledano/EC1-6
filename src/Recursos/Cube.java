@@ -237,8 +237,8 @@ public class Cube implements Cloneable {
         for(int i=0;i<BACK.length;i++){
             BACK[BACK.length-1-n][i]=auxL[LEFT.length-1-i][LEFT.length-1-n];
             LEFT[i][LEFT.length-1-n]=FRONT[n][i];
-            FRONT[n][i]=RIGHT[i][n];
-            RIGHT[i][n]=auxB[BACK.length-n-1][i];
+            FRONT[n][i]=RIGHT[RIGHT.length-1-i][n];
+            RIGHT[RIGHT.length-1-i][n]=auxB[BACK.length-n-1][BACK.length-1-i];
 
         }
         if(n==0){

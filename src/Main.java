@@ -31,6 +31,12 @@ public class Main {
                 System.out.println(cube);
                 System.out.println(cube.toMD5());
 
+                cube.movimientosInvertidos(movimiento);
+
+                cube.paint(frame);
+                System.out.println(cube);
+                System.out.println(cube.toMD5());
+
 
             }
 
