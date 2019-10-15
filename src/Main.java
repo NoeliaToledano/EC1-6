@@ -16,23 +16,25 @@ public class Main {
             Cube cube = gson.fromJson(reader, Cube.class);
             cube.setSize(cube.getDOWN().length);// mega importante
 
-            System.out.println(cube.toLineString());
             System.out.println(cube.toMD5());
 
             cube.paint(frame);
+
 
             while(true){
                 System.out.println("Por favor, inserte los movimientos :");
                 Scanner scan = new Scanner(System.in);
                 String movimiento = scan.next();
                 cube.movimientos(movimiento);
+
                 cube.paint(frame);
                 System.out.println(cube);
-
+                System.out.println(cube.toMD5());
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
