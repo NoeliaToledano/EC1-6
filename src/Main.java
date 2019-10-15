@@ -30,6 +30,8 @@ public class Main {
                 cube.paint(frame);
                 System.out.println(cube);
                 System.out.println(cube.toMD5());
+
+
             }
 
         } catch (IOException e) {
