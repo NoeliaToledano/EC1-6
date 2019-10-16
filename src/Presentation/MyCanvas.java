@@ -1,3 +1,7 @@
+package Presentation;
+
+import Recursos.Cube;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,22 +24,15 @@ public class MyCanvas extends JComponent {
         paintFace(g, 260, 540, cube.getFRONT());
 
     }
-    public void paintCube(Cube cube){
-
-    }
     public void paintFace(Graphics g, int initX, int initY, int[][] cara) {
         int n=cara.length;
-        int x=0;
-        int y=0;
+        int longitud=240/n;
 
-        for (int pixelx = initX; pixelx <= initX + (240 / n * (n - 1)); pixelx += 240 / n ){
-            x++;
-            for (int pixely = initY; pixely <= initY + (240 / n * (n - 1)); pixely += 240 / n){
-                y++;
-                if (y>=4){
-                    y=1;
-                }
-                switch(cara[y-1][x-1]){
+        for (int x=0; x<n; x++ ){
+            int pixelx=initX + x*longitud;
+            for (int y=0; y<n;y++){
+                int pixely=initY + y*longitud;
+                switch(cara[y][x]){
                     case 0:
                         g.setColor(Color.RED);
                         break;
@@ -56,7 +53,11 @@ public class MyCanvas extends JComponent {
                         break;
 
                 }
-                g.fillRect(pixelx, pixely, 240 / n, 240 / n);
+
+                g.fillRect(pixelx, pixely,longitud, longitud);
+
+                g.setColor(Color.BLACK);
+                g.drawRect(pixelx, pixely, longitud, longitud);
             }
 
         }

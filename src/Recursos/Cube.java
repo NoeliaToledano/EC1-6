@@ -1,13 +1,14 @@
-import java.util.Arrays;
+package Recursos;
+import Presentation.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-//todo corregir movimientos Noelia
-//todo leer bien el string de movimientos Manu
-//todo metodo movimiento invertido Manu
 
-public class Cube {
+import java.util.Arrays;
+
+
+public class Cube implements Cloneable {
     private int[][] BACK;
     private int[][] DOWN;
     private int[][] FRONT;
@@ -16,56 +17,69 @@ public class Cube {
     private int[][] UP;
     private int size;
 
-    Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up) {
-        this.BACK = back;
-        this.DOWN = down;
-        this.FRONT = front;
-        this.LEFT = left;
-        this.RIGHT = right;
-        this.UP = up;
-        this.size = BACK.length - 1;
-    
+        Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
+            this.BACK = back;
+            this.DOWN = down;
+            this.FRONT = front;
+            this.LEFT = left;
+            this.RIGHT = right;
+            this.UP = up;
+            this.size = BACK.length - 1;
+
         }
 
     public int[][] getBACK() {
         return BACK;
     }
+
     public int[][] getDOWN() {
         return DOWN;
     }
+
     public int[][] getFRONT() {
         return FRONT;
     }
+
     public int[][] getLEFT() {
         return LEFT;
     }
+
     public int[][] getRIGHT() {
         return RIGHT;
     }
+
     public int[][] getUP() {
         return UP;
     }
+
     public int getSize() {
         return size;
     }
+
     public void setBACK(int[][] BACK) {
         this.BACK = BACK;
     }
+
     public void setDOWN(int[][] DOWN) {
         this.DOWN = DOWN;
     }
+
     public void setFRONT(int[][] FRONT) {
         this.FRONT = FRONT;
     }
+
     public void setLEFT(int[][] LEFT) {
         this.LEFT = LEFT;
     }
+
     public void setRIGHT(int[][] RIGHT) {
         this.RIGHT = RIGHT;
     }
+
     public void setUP(int[][] UP) {
         this.UP = UP;
     }
+
     public void setSize(int size) {
         this.size = size;
     }
@@ -79,6 +93,13 @@ public class Cube {
                 "\n UP=   " + Arrays.deepToString(UP);
     }
 
+    public void paint(GUIForm frame) {
+        MyCanvas canvas = new MyCanvas();
+        canvas.setCube(this);
+        frame.getContentPane().add(canvas);
+        frame.setVisible(true);
+    }
+
     public Cube clone() {
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
@@ -90,49 +111,83 @@ public class Cube {
         return auxCube;
     }
 
-    public void movimientos(String mov){
+    public void movimientosInvertidos(String ordenes){
         char c;
-        char num;
         int n;
+        String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
+        try {
+            for (int i = mov.length-1; i >= 0; i--) {
+                String[] part = mov[i].split("(?<=\\D)(?=\\d)");
+                c = part[0].charAt(0);
+                n = Integer.parseInt(part[1]);
 
-        for(int i = 0; i<mov.length(); i++){
-
-           c = mov.charAt(i);
-           num = mov.charAt(i+1);
-           n= Character.getNumericValue(num);
-           if((c == 'B' || c == 'b' ||  c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n<=size && n>=0)){
-
-                switch (c) {
-
-                    case 'L':
-                        moveL(n);
-                        break;
-                    case 'l':
-                        movel(n);
-                        break;
-                    case 'D':
-                        moveD(n);
-                        break;
-                    case 'd':
-                        moved(n);
-                        break;
-                    case 'B':
-                        moveB(n);
-                        break;
-                    case 'b':
-                        moveb(n);
-                        break;
-
+                if(Character.isUpperCase(c)){
+                    c =Character.toLowerCase(c);
+                }else{
+                    c =Character.toUpperCase(c);
                 }
+                aplicarMovimiento(c,n);
+            }
 
-            }else{
-
-               System.out.println("No podemos realizar este movimiento:" + c + n);
-           }
-            i++;
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }catch(NumberFormatException e){
+            System.out.println("Set de instrucciones mal declarado.");
         }
-
     }
+
+    public void movimientos(String ordenes) {
+        char c;
+        int n;
+        String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
+
+        try {
+            for (int i = 0; i < mov.length; i++) {
+                String[] part = mov[i].split("(?<=\\D)(?=\\d)");
+                c = part[0].charAt(0);
+                n = Integer.parseInt(part[1]);
+                aplicarMovimiento(c,n);
+            }
+
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }catch(NumberFormatException e){
+            System.out.println("Set de instrucciones mal declarado.");
+        }
+    }
+
+    private void aplicarMovimiento(char c,int n){
+        if ((c == 'B' || c == 'b' || c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n <= size && n >= 0)) {
+
+            switch (c) {
+
+                case 'L':
+                    moveL(n);
+                    break;
+                case 'l':
+                    movel(n);
+                    break;
+                case 'D':
+                    moveD(n);
+                    break;
+                case 'd':
+                    moved(n);
+                    break;
+                case 'B':
+                    moveB(n);
+                    break;
+                case 'b':
+                    moveb(n);
+                    break;
+
+            }
+
+        } else {
+
+            System.out.println("El movimiento: " + c + n + " no existe.");
+        }
+    }
+
     public void moveL(int n){
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
@@ -173,6 +228,7 @@ public class Cube {
 
 
     }
+
     public void moveD(int n){
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
@@ -181,8 +237,8 @@ public class Cube {
         for(int i=0;i<BACK.length;i++){
             BACK[BACK.length-1-n][i]=auxL[LEFT.length-1-i][LEFT.length-1-n];
             LEFT[i][LEFT.length-1-n]=FRONT[n][i];
-            FRONT[n][i]=RIGHT[i][n];
-            RIGHT[i][n]=auxB[BACK.length-n-1][i];
+            FRONT[n][i]=RIGHT[RIGHT.length-1-i][n];
+            RIGHT[RIGHT.length-1-i][n]=auxB[BACK.length-n-1][BACK.length-1-i];
 
         }
         if(n==0){
@@ -199,8 +255,8 @@ public class Cube {
         for(int i=0;i<BACK.length;i++){
             LEFT[LEFT.length-1-i][LEFT.length-1-n]=BACK[BACK.length-1-n][i];
             BACK[BACK.length-n-1][i]=RIGHT[i][n];
-            RIGHT[i][n]=FRONT[n][i];
-            FRONT[n][i]=auxL[i][LEFT.length-1-n];
+            RIGHT[i][n]=FRONT[n][RIGHT.length-1-i];
+            FRONT[n][RIGHT.length-1-i]=auxL[LEFT.length-1-i][LEFT.length-1-n];
 
 
         }
