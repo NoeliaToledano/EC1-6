@@ -17,7 +17,7 @@ public class Main {
             cube.setSize(cube.getDOWN().length);// mega importante
 
             System.out.println(cube.toMD5());
-
+            System.out.println(cube.objetivo());
             cube.paint(frame);
 
 
@@ -30,13 +30,7 @@ public class Main {
                 cube.paint(frame);
                 System.out.println(cube);
                 System.out.println(cube.toMD5());
-
-                cube.movimientosInvertidos(movimiento);
-
-                cube.paint(frame);
-                System.out.println(cube);
-                System.out.println(cube.toMD5());
-
+                System.out.println(cube.objetivo());
 
             }
 

@@ -16,17 +16,18 @@ public class Cube implements Cloneable {
     private int[][] RIGHT;
     private int[][] UP;
     private int size;
+    private String md5Sol;
 
-        Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up){
-            this.BACK = back;
-            this.DOWN = down;
-            this.FRONT = front;
-            this.LEFT = left;
-            this.RIGHT = right;
-            this.UP = up;
-            this.size = BACK.length - 1;
+    Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up) {
+        this.BACK = back;
+        this.DOWN = down;
+        this.FRONT = front;
+        this.LEFT = left;
+        this.RIGHT = right;
+        this.UP = up;
+        this.size = BACK.length - 1;
 
-        }
+    }
 
     public int[][] getBACK() {
         return BACK;
@@ -111,27 +112,27 @@ public class Cube implements Cloneable {
         return auxCube;
     }
 
-    public void movimientosInvertidos(String ordenes){
+    public void movimientosInvertidos(String ordenes) {
         char c;
         int n;
         String[] mov = ordenes.split("(?<=\\d)(?=\\D)");
         try {
-            for (int i = mov.length-1; i >= 0; i--) {
+            for (int i = mov.length - 1; i >= 0; i--) {
                 String[] part = mov[i].split("(?<=\\D)(?=\\d)");
                 c = part[0].charAt(0);
                 n = Integer.parseInt(part[1]);
 
-                if(Character.isUpperCase(c)){
-                    c =Character.toLowerCase(c);
-                }else{
-                    c =Character.toUpperCase(c);
+                if (Character.isUpperCase(c)) {
+                    c = Character.toLowerCase(c);
+                } else {
+                    c = Character.toUpperCase(c);
                 }
-                aplicarMovimiento(c,n);
+                aplicarMovimiento(c, n);
             }
 
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Set de instrucciones mal declarado.");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Set de instrucciones mal declarado.");
         }
     }
@@ -146,17 +147,17 @@ public class Cube implements Cloneable {
                 String[] part = mov[i].split("(?<=\\D)(?=\\d)");
                 c = part[0].charAt(0);
                 n = Integer.parseInt(part[1]);
-                aplicarMovimiento(c,n);
+                aplicarMovimiento(c, n);
             }
 
-        }catch(IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Set de instrucciones mal declarado.");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Set de instrucciones mal declarado.");
         }
     }
 
-    private void aplicarMovimiento(char c,int n){
+    private void aplicarMovimiento(char c, int n) {
         if ((c == 'B' || c == 'b' || c == 'L' || c == 'l' || c == 'd' || c == 'D') && (n <= size && n >= 0)) {
 
             switch (c) {
@@ -188,117 +189,120 @@ public class Cube implements Cloneable {
         }
     }
 
-    public void moveL(int n){
+    public void moveL(int n) {
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
-        for(int i=0;i<BACK.length;i++){
-            BACK[i][n]=DOWN[i][n];
-            DOWN[i][n]=FRONT[i][n];
-            FRONT[i][n]=UP[UP.length-i-1][UP.length-1-n];
-            UP[UP.length-i-1][UP.length-1-n]=auxB[i][n];
+        for (int i = 0; i < BACK.length; i++) {
+            BACK[i][n] = DOWN[i][n];
+            DOWN[i][n] = FRONT[i][n];
+            FRONT[i][n] = UP[UP.length - i - 1][UP.length - 1 - n];
+            UP[UP.length - i - 1][UP.length - 1 - n] = auxB[i][n];
 
         }
-        if(n==0){
-            LEFT=rotateClockWise(LEFT);
-        }else if(n==size){
-            RIGHT=rotateClockWise(RIGHT);
+        if (n == 0) {
+            LEFT = rotateClockWise(LEFT);
+        } else if (n == size) {
+            RIGHT = rotateClockWise(RIGHT);
         }
 
 
     }
-    public void movel(int n){
+
+    public void movel(int n) {
 
         int[][] auxD = Arrays.stream(DOWN).map(int[]::clone).toArray(int[][]::new);
 
-        for(int i=0;i<BACK.length;i++){
+        for (int i = 0; i < BACK.length; i++) {
 
-            DOWN[i][n]=BACK[i][n];
-            BACK[i][n]=UP[UP.length-i-1][UP.length-1-n];
-            UP[UP.length-i-1][UP.length-1-n]= FRONT[i][n];
-            FRONT[i][n]=auxD[i][n];
-
-        }
-        if(n==0){
-            LEFT=rotateAntiClockWise(LEFT);
-        }else if(n==size){
-            RIGHT=rotateAntiClockWise(RIGHT);
+            DOWN[i][n] = BACK[i][n];
+            BACK[i][n] = UP[UP.length - i - 1][UP.length - 1 - n];
+            UP[UP.length - i - 1][UP.length - 1 - n] = FRONT[i][n];
+            FRONT[i][n] = auxD[i][n];
 
         }
+        if (n == 0) {
+            LEFT = rotateAntiClockWise(LEFT);
+        } else if (n == size) {
+            RIGHT = rotateAntiClockWise(RIGHT);
 
+        }
 
 
     }
 
-    public void moveD(int n){
+    public void moveD(int n) {
 
         int[][] auxB = Arrays.stream(BACK).map(int[]::clone).toArray(int[][]::new);
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
 
-        for(int i=0;i<BACK.length;i++){
-            BACK[BACK.length-1-n][i]=auxL[LEFT.length-1-i][LEFT.length-1-n];
-            LEFT[i][LEFT.length-1-n]=FRONT[n][i];
-            FRONT[n][i]=RIGHT[RIGHT.length-1-i][n];
-            RIGHT[RIGHT.length-1-i][n]=auxB[BACK.length-n-1][BACK.length-1-i];
+        for (int i = 0; i < BACK.length; i++) {
+            BACK[BACK.length - 1 - n][i] = auxL[LEFT.length - 1 - i][LEFT.length - 1 - n];
+            LEFT[i][LEFT.length - 1 - n] = FRONT[n][i];
+            FRONT[n][i] = RIGHT[RIGHT.length - 1 - i][n];
+            RIGHT[RIGHT.length - 1 - i][n] = auxB[BACK.length - n - 1][BACK.length - 1 - i];
 
         }
-        if(n==0){
-            DOWN=rotateClockWise(DOWN);
-        }else if(n==size){
-            UP=rotateClockWise(UP);
+        if (n == 0) {
+            DOWN = rotateClockWise(DOWN);
+        } else if (n == size) {
+            UP = rotateClockWise(UP);
 
         }
 
     }
-    public void moved(int n){
+
+    public void moved(int n) {
 
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
-        for(int i=0;i<BACK.length;i++){
-            LEFT[LEFT.length-1-i][LEFT.length-1-n]=BACK[BACK.length-1-n][i];
-            BACK[BACK.length-n-1][i]=RIGHT[i][n];
-            RIGHT[i][n]=FRONT[n][RIGHT.length-1-i];
-            FRONT[n][RIGHT.length-1-i]=auxL[LEFT.length-1-i][LEFT.length-1-n];
+        for (int i = 0; i < BACK.length; i++) {
+            LEFT[LEFT.length - 1 - i][LEFT.length - 1 - n] = BACK[BACK.length - 1 - n][i];
+            BACK[BACK.length - n - 1][i] = RIGHT[i][n];
+            RIGHT[i][n] = FRONT[n][RIGHT.length - 1 - i];
+            FRONT[n][RIGHT.length - 1 - i] = auxL[LEFT.length - 1 - i][LEFT.length - 1 - n];
 
 
         }
-        if(n==0){
-            DOWN=rotateAntiClockWise(DOWN);
-        }else if(n==size){
-            UP=rotateAntiClockWise(UP);
+        if (n == 0) {
+            DOWN = rotateAntiClockWise(DOWN);
+        } else if (n == size) {
+            UP = rotateAntiClockWise(UP);
 
         }
 
     }
-    public void moveB(int n){
+
+    public void moveB(int n) {
         int[][] auxL = Arrays.stream(LEFT).map(int[]::clone).toArray(int[][]::new);
-        for(int i=0;i<BACK.length;i++){
-            LEFT[n][i]=UP[n][i];
-            UP[n][i]=RIGHT[n][i];
-            RIGHT[n][i]=DOWN[n][i];
-            DOWN[n][i]=auxL[n][i];
+        for (int i = 0; i < BACK.length; i++) {
+            LEFT[n][i] = UP[n][i];
+            UP[n][i] = RIGHT[n][i];
+            RIGHT[n][i] = DOWN[n][i];
+            DOWN[n][i] = auxL[n][i];
 
         }
-        if(n==0){
-            BACK=rotateClockWise(BACK);
-        }else if(n==size){
-            FRONT=rotateClockWise(FRONT);
+        if (n == 0) {
+            BACK = rotateClockWise(BACK);
+        } else if (n == size) {
+            FRONT = rotateClockWise(FRONT);
 
         }
 
     }
-    public void moveb(int n){
+
+    public void moveb(int n) {
 
         int[][] auxU = Arrays.stream(UP).map(int[]::clone).toArray(int[][]::new);
-        for(int i=0;i<BACK.length;i++){
-            UP[n][i]=LEFT[n][i];
-            LEFT[n][i]=DOWN[n][i];
-            DOWN[n][i]=RIGHT[n][i];
-            RIGHT[n][i]=auxU[n][i];
+        for (int i = 0; i < BACK.length; i++) {
+            UP[n][i] = LEFT[n][i];
+            LEFT[n][i] = DOWN[n][i];
+            DOWN[n][i] = RIGHT[n][i];
+            RIGHT[n][i] = auxU[n][i];
 
         }
-        if(n==0){
-            BACK=rotateAntiClockWise(BACK);
-        }else if(n==size){
-            FRONT=rotateAntiClockWise(FRONT);
+        if (n == 0) {
+            BACK = rotateAntiClockWise(BACK);
+        } else if (n == size) {
+            FRONT = rotateAntiClockWise(FRONT);
         }
 
     }
@@ -313,6 +317,7 @@ public class Cube implements Cloneable {
 
         return aux;
     }
+
     private int[][] rotateAntiClockWise(int[][] array) {
         int size = array.length;
         int[][] aux = new int[size][size];
@@ -344,5 +349,38 @@ public class Cube implements Cloneable {
 
     public String toLineString() {
         return this.toString().replaceAll("[^0-6]", "");
+    }
+
+    public boolean objetivo() {
+        boolean esObjetivo = true;
+        if (!comprobar(BACK)) {
+            esObjetivo = false;
+        } else if (!comprobar(DOWN)) {
+            esObjetivo = false;
+        } else if (!comprobar(FRONT)) {
+            esObjetivo = false;
+        } else if (!comprobar(LEFT)) {
+            esObjetivo = false;
+        } else if (!comprobar(RIGHT)) {
+            esObjetivo = false;
+        } else if (!comprobar(UP)) {
+            esObjetivo = false;
+        }
+
+        return esObjetivo;
+
+    }
+
+    private boolean comprobar(int[][] cara) {
+        int muestraB = cara[0][0];
+        boolean iguales = true;
+        for (int i = 0; i < size && iguales; i++) {
+            for (int j = 0; j < size && iguales; j++) {
+                if (muestraB != cara[i][j])
+                    iguales = false;
+            }
+        }
+        return iguales;
+
     }
 }
