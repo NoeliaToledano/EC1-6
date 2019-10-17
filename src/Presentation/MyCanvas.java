@@ -1,6 +1,6 @@
 package Presentation;
 
-import Recursos.Cube;
+import Recursos.*;
 
 import javax.swing.*;
 import java.awt.*;
