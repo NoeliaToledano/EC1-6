@@ -35,8 +35,6 @@ public class Main {
 
                 sucesores.get(i).getCubo().paint(frame);
 
-
-
             }
 
 
