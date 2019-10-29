@@ -1,15 +1,11 @@
 import java.io.*;
 
 import Presentation.*;
-import Recursos.Cube;
-import Recursos.Estado;
-import Recursos.Sucesor;
+import Recursos.*;
+
 
 import com.google.gson.*;
-import jdk.swing.interop.SwingInterOpUtils;
 
-import javax.swing.*;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 
 import java.util.Scanner;
