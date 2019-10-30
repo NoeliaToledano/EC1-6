@@ -1,6 +1,6 @@
 package Recursos;
 
-public class NodoArbol {
+public class NodoArbol implements Comparable<NodoArbol>  {
     private int id;
     private Estado estado;
     private float Costo_camino;
@@ -73,7 +73,16 @@ public class NodoArbol {
     public void setId(int id) {
         this.id = id;
     }
-
+    @Override
+    public int compareTo(NodoArbol nodo1) {
+        if(this.f > nodo1.getF()) {
+            return 1;
+        } else if (this.f < nodo1.getF()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
     @Override
     public String toString() {
         return "NodoArbol{" +

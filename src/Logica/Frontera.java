@@ -1,12 +1,13 @@
 package Logica;
 
+import Recursos.NodoArbol;
 import Recursos.Sucesor;
 
 import java.util.PriorityQueue;
 
 public class Frontera {
 
-        private static PriorityQueue<Sucesor> fronteraPQ;
+        private static PriorityQueue<NodoArbol> fronteraPQ;
         private static Frontera miFrontera;
 
         public static Frontera getFrontera(){
@@ -16,29 +17,25 @@ public class Frontera {
             return miFrontera;
         }
         private Frontera(){
-            fronteraPQ=new PriorityQueue<Sucesor>(new FronteraComparator());
+            fronteraPQ=new PriorityQueue<NodoArbol>();
         }
 
-        public void InsertarVarios(){
+        public void insertarVarios(){
 
         }
 
-        public void Insertar(Sucesor sucesor){
-            fronteraPQ.add(sucesor);
+        public void insertar(NodoArbol nodo){
+            fronteraPQ.add(nodo);
         }
 
-        public Sucesor Retirar(){
+        public NodoArbol retirar(){
 
             return fronteraPQ.poll();
 
         }
 
-        public boolean EsVacia(){
-            boolean vacia=false;
-            if (fronteraPQ.isEmpty()){
-                vacia=true;
-            }
-            return vacia;
+        public boolean esVacia(){
+            return fronteraPQ.isEmpty();
         }
 }
 

@@ -1,11 +1,13 @@
 import java.io.*;
 
+import Logica.Frontera;
 import Presentation.*;
 import Recursos.*;
 
 
 import com.google.gson.*;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 
 import java.util.Scanner;
@@ -22,9 +24,18 @@ public class Main {
             System.out.println(cube.toMD5());
 
 
-            Estado prueba=new Estado(cube);
 
-            ArrayList<Sucesor> sucesores =prueba.sucesores();
+            Frontera frontera= Frontera.getFrontera();
+            Estado estado1=new Estado(cube);
+            NodoArbol nodo1 = new NodoArbol(1,estado1,1,"L1",1,6);
+            NodoArbol nodo2 = new NodoArbol(2,estado1,1,"L1",1,2);
+            NodoArbol nodo3 = new NodoArbol(3,estado1,1,"L1",1,8);
+            frontera.insertar(nodo1);
+            frontera.insertar(nodo2);
+            frontera.insertar(nodo3);
+            System.out.println(frontera.retirar());
+
+            /*ArrayList<Sucesor> sucesores =prueba.sucesores();
 
             for (int i = 0; i < sucesores.size(); i++) {
                 System.out.println(sucesores.get(i));
@@ -32,7 +43,7 @@ public class Main {
                 sucesores.get(i).getCubo().paint(frame);
 
             }
-
+            */
 
 /*
             while(true){
