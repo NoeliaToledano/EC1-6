@@ -32,7 +32,7 @@ public class Estado {
                 if(Character.isUpperCase(ejes.charAt(i))){
                     sucesores.add(new Sucesor(mov,cuboCopia,1));
                 }else{
-                    sucesores.add(new Sucesor(mov,cuboCopia,2));
+                    sucesores.add(new Sucesor(mov,cuboCopia,1));
                 }
             }
         }

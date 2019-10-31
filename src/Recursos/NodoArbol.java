@@ -7,22 +7,20 @@ public class NodoArbol implements Comparable<NodoArbol>  {
     private String Accion;
     private float d;
     private float f;
+    private Estado padre;
 
-    public NodoArbol(int id, Estado estado, float costo_camino, String accion, float d, float f) {
+    public NodoArbol(int id, Estado estado, float costo_camino, String accion, float d, float f, Estado padre) {
         this.id= id;
         this.estado = estado;
         this.Costo_camino = costo_camino;
         this.Accion = accion;
         this.d = d;
         this.f = f;
+        this.padre=padre;
     }
 
     public boolean EsPadre () {
-        boolean Padre = false;
-        if(Costo_camino == 0){
-            Padre = true;
-        }
-      return Padre;
+      return Costo_camino == 0;
     }
     public Estado getEstado() {
         return estado;

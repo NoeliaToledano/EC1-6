@@ -27,13 +27,21 @@ public class Main {
 
             Frontera frontera= Frontera.getFrontera();
             Estado estado1=new Estado(cube);
-            NodoArbol nodo1 = new NodoArbol(1,estado1,1,"L1",1,6);
-            NodoArbol nodo2 = new NodoArbol(2,estado1,1,"L1",1,2);
-            NodoArbol nodo3 = new NodoArbol(3,estado1,1,"L1",1,8);
+            NodoArbol nodo1 = new NodoArbol(1,estado1,1,"L1",1,6,null);
+            NodoArbol nodo2 = new NodoArbol(2,estado1,1,"L1",1,2,null);
+            NodoArbol nodo3 = new NodoArbol(3,estado1,1,"L1",1,8,null);
             frontera.insertar(nodo1);
             frontera.insertar(nodo2);
             frontera.insertar(nodo3);
-            System.out.println(frontera.retirar());
+            int i =0;
+            while(true){
+
+                frontera.insertar(new NodoArbol(i,estado1,1,"l3",2,2,null));
+                System.out.println(i);
+                i++;
+
+            }
+
 
             /*ArrayList<Sucesor> sucesores =prueba.sucesores();
 
