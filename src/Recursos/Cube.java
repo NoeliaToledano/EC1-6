@@ -25,7 +25,7 @@ public class Cube implements Cloneable {
         this.LEFT = left;
         this.RIGHT = right;
         this.UP = up;
-        this.size = BACK.length - 1;
+        this.size = BACK.length;
 
     }
 

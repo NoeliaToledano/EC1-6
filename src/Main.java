@@ -24,7 +24,7 @@ public class Main {
 
             System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube);
-            miProblema.busqueda("Anchura",9999999);
+            miProblema.busqueda("Anchura",6);
 
 
         } catch (IOException e) {

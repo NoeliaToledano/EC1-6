@@ -71,11 +71,12 @@ public class Problema {
     }
     public void CrearSolucion(NodoArbol nodoObjetivo){
 
-        System.out.println(nodoObjetivo+" Accion: "+nodoObjetivo.getAccion());
+        System.out.println("["+nodoObjetivo.getId()+"](["+nodoObjetivo.getAccion()+"]"+nodoObjetivo.getEstado().getCubo().toMD5()+",c="+nodoObjetivo.getCosto_camino()+",p="+nodoObjetivo.getD()+",f="+nodoObjetivo.getF()+")");
         NodoArbol nodo=nodoObjetivo.getPadre();
         while(!nodo.EsPadre()){
-            System.out.println(nodo+" Accion: "+nodo.getAccion());
+            System.out.println("["+nodo.getId()+"](["+nodo.getAccion()+"]"+nodo.getEstado().getCubo().toMD5()+",c="+nodo.getCosto_camino()+",p="+nodo.getD()+",f="+nodo.getF()+")");
             nodo=nodo.getPadre();
         }
+        System.out.println("["+nodo.getId()+"](["+nodo.getAccion()+"]"+nodo.getEstado().getCubo().toMD5()+",c="+nodo.getCosto_camino()+",p="+nodo.getD()+",f="+nodo.getF()+")");
     }
 }
