@@ -18,13 +18,13 @@ public class Main {
         GUIForm frame=new GUIForm();
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("cuboEjemplo.json")) {
+        try (Reader reader = new FileReader("cubo1.json")) {
             Cube cube = gson.fromJson(reader, Cube.class);
             cube.setSize(cube.getDOWN().length);// mega importante
 
             System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube);
-            miProblema.busqueda("Anchura",6);
+            miProblema.busqueda("Anchura",20);
 
 
         } catch (IOException e) {

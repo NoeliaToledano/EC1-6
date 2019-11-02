@@ -201,7 +201,7 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             LEFT = rotateClockWise(LEFT);
-        } else if (n == size) {
+        } else if (n == size | (n==1 & size==2)) {
             RIGHT = rotateClockWise(RIGHT);
         }
 
@@ -222,7 +222,7 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             LEFT = rotateAntiClockWise(LEFT);
-        } else if (n == size) {
+        } else if (n == size | (n==1 & size==2)) {
             RIGHT = rotateAntiClockWise(RIGHT);
 
         }
@@ -244,7 +244,8 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             DOWN = rotateClockWise(DOWN);
-        } else if (n == size) {
+
+        } else if (n == size | (n==1 & size==2)) {
             UP = rotateClockWise(UP);
 
         }
@@ -264,7 +265,7 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             DOWN = rotateAntiClockWise(DOWN);
-        } else if (n == size) {
+        } else if (n == size | (n==1 & size==2)) {
             UP = rotateAntiClockWise(UP);
 
         }
@@ -282,7 +283,7 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             BACK = rotateClockWise(BACK);
-        } else if (n == size) {
+        } else if (n == size | (n==1 & size==2)) {
             FRONT = rotateClockWise(FRONT);
 
         }
@@ -301,7 +302,7 @@ public class Cube implements Cloneable {
         }
         if (n == 0) {
             BACK = rotateAntiClockWise(BACK);
-        } else if (n == size) {
+        } else if (n == size | (n==1 & size==2)) {
             FRONT = rotateAntiClockWise(FRONT);
         }
 

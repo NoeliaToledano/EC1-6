@@ -23,7 +23,7 @@ public class Estado {
     }
 
     public Queue<Sucesor> sucesores(){
-        String ejes="BbDdLl";
+        String ejes="bBlLdD";
         Queue<Sucesor> sucesores=new LinkedList<Sucesor>();
 
         for (int i=0;i<ejes.length();i++){
