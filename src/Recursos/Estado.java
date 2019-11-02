@@ -1,6 +1,8 @@
 package Recursos;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Estado {
     private Cube cubo;
@@ -20,9 +22,9 @@ public class Estado {
         return cubo.objetivo();
     }
 
-    public ArrayList<Sucesor> sucesores(){
+    public Queue<Sucesor> sucesores(){
         String ejes="BbDdLl";
-        ArrayList<Sucesor> sucesores=new ArrayList<Sucesor>();
+        Queue<Sucesor> sucesores=new LinkedList<Sucesor>();
 
         for (int i=0;i<ejes.length();i++){
             for(int j=0;j<cubo.getSize();j++){
@@ -30,9 +32,9 @@ public class Estado {
                 Cube cuboCopia =cubo.clone();
                 cuboCopia.movimientos(mov);
                 if(Character.isUpperCase(ejes.charAt(i))){
-                    sucesores.add(new Sucesor(mov,cuboCopia,1));
+                    sucesores.add(new Sucesor(mov,new Estado(cuboCopia),1));
                 }else{
-                    sucesores.add(new Sucesor(mov,cuboCopia,1));
+                    sucesores.add(new Sucesor(mov,new Estado(cuboCopia),1));
                 }
             }
         }

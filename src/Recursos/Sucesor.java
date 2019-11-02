@@ -2,25 +2,25 @@ package Recursos;
 
 public class Sucesor {
     private String movimiento;
-    private Cube cubo;
+    private Estado estado;
     private int coste;
 
-    public Sucesor(String movimiento, Cube cubo, int coste) {
+    public Sucesor(String movimiento, Estado estado, int coste) {
         this.movimiento = movimiento;
-        this.cubo = cubo;
+        this.estado = estado;
         this.coste = coste;
     }
 
     public String toString(){
-        return ("Movimiento:"+movimiento+"\n"+cubo.toString()+"\nCoste:"+coste);
+        return ("Movimiento:"+movimiento+"\n"+estado.getCubo().toString()+"\nCoste:"+coste);
     }
 
     public String getMovimiento() {
         return movimiento;
     }
 
-    public Cube getCubo() {
-        return cubo;
+    public Estado getEstado() {
+        return estado;
     }
 
     public int getCoste() {
@@ -31,9 +31,6 @@ public class Sucesor {
         this.movimiento = movimiento;
     }
 
-    public void setCubo(Cube cubo) {
-        this.cubo = cubo;
-    }
 
     public void setCoste(int coste) {
         this.coste = coste;

@@ -4,6 +4,7 @@ import Recursos.NodoArbol;
 import Recursos.Sucesor;
 
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Frontera {
 
@@ -20,8 +21,10 @@ public class Frontera {
             fronteraPQ=new PriorityQueue<NodoArbol>();
         }
 
-        public void insertarVarios(){
-
+        public void insertarVarios(Queue<NodoArbol> listaNodos){
+            while(!listaNodos.isEmpty()){
+                fronteraPQ.add(listaNodos.poll());
+            }
         }
 
         public void insertar(NodoArbol nodo){
