@@ -19,9 +19,7 @@ public class NodoArbol implements Comparable<NodoArbol>  {
         this.padre=padre;
     }
 
-    public boolean EsPadre () {
-      return Costo_camino == 0;
-    }
+    public boolean EsPadre () { return Costo_camino == 0.0; }
     public Estado getEstado() {
         return estado;
     }
