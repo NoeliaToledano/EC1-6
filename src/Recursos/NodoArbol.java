@@ -62,7 +62,9 @@ public class NodoArbol implements Comparable<NodoArbol>  {
         this.f = f;
     }
 
-
+    public NodoArbol getPadre(){
+        return this.padre;
+    }
 
     public int getId() {
         return id;
