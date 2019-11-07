@@ -55,7 +55,8 @@ public class Problema {
         if(profActual<profMax) { //si no he llegado a la profMax creo la lista de nodoArbol
             if (estrategia.equals("Anchura") || estrategia.equals("Breadth")) {
                 Sucesor sucesorActu;
-                while ((sucesorActu = sucesores.poll()) != null) {
+                while (!sucesores.isEmpty()) {
+                    sucesorActu=sucesores.poll();
                     f=(float)profActual;
                     if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                         if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
