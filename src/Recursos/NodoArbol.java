@@ -79,7 +79,8 @@ public class NodoArbol implements Comparable<NodoArbol>  {
         } else if (this.f < nodo1.getF()) {
             return -1;
         } else {
-            return 0;
+            if(this.id>nodo1.getId()) return 1;
+            else return -1;
         }
     }
     @Override
