@@ -8,9 +8,10 @@ public class NodoArbol implements Comparable<NodoArbol>  {
     private int d;
     private float f;
     private NodoArbol padre;
+    private static int nodosCreados=0;
 
-    public NodoArbol(int id, Estado estado, float costo_camino, String accion, int d, float f, NodoArbol padre) {
-        this.id= id;
+    public NodoArbol(Estado estado, float costo_camino, String accion, int d, float f, NodoArbol padre) {
+        this.id= nodosCreados++;
         this.estado = estado;
         this.Costo_camino = costo_camino;
         this.Accion = accion;
