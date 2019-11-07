@@ -59,9 +59,11 @@ public class Problema {
                     f=(float)profActual;
                     if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                         if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
-                            listaNodos.add(new NodoArbol(idActual++, sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual));
+                            listaNodos.add(new NodoArbol(++idActual, sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual));
+                            nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
                     }else{ //sino  se he expandido antes lo inserto directamente
-                        listaNodos.add(new NodoArbol(idActual++, sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual));
+                        listaNodos.add(new NodoArbol(++idActual, sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual));
+                        nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
                     }
 
                 }
@@ -84,3 +86,4 @@ public class Problema {
 
         }
 }
+
