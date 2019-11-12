@@ -24,7 +24,7 @@ public class Main {
 
             //System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube);
-            miProblema.busqueda("Anchura",6);
+            miProblema.busqueda("Profundidad",6);
 
 
 
