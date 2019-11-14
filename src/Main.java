@@ -24,7 +24,7 @@ public class Main {
 
             //System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube);
-            miProblema.busqueda("Coste_Uniforme",6);
+            miProblema.busqueda("Costo Uniforme",6);
 
 
 

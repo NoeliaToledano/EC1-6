@@ -16,7 +16,7 @@ public class Problema {
         this.solucion=false;
         this.frontera.insertar(nodoInicial);
         this.nodosExpan= new HashMap<String, Float>();
-        nodosExpan.put(cuboInicial.toMD5(),(float)0);
+        //nodosExpan.put(cuboInicial.toMD5(),(float)0);
 
     }
 
@@ -52,7 +52,7 @@ public class Problema {
         int profActual= nodoActual.getD();
 
         if(estrategia.equals("Profundidad") || estrategia.equals("Depth")){
-
+            listaNodos = Profundidad_Acotada(listaNodos, profActual, sucesores, nodoActual);
         }
 
         if(profActual<profMax) { //si no he llegado a la profMax creo la lista de nodoArbol
@@ -145,8 +145,8 @@ public class Problema {
         profActual++;
         Sucesor sucesorActu = null;
         while (!sucesores.isEmpty()) {
-            f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
             sucesorActu=sucesores.poll();
+            f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
             NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (f), sucesorActu.getMovimiento(), profActual, f, nodoActual);
             if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                 if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
