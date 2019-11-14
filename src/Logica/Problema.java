@@ -71,7 +71,6 @@ public class Problema {
                 case "Bounded Depth":
                     listaNodos = Profundidad_Acotada(listaNodos, profActual, sucesores, nodoActual);
                     break;
-
                 case "Costo Uniforme" :
                     listaNodos = Costo_Uniforme(listaNodos, profActual, sucesores, nodoActual);
                     break;
@@ -145,8 +144,8 @@ public class Problema {
         profActual++;
         Sucesor sucesorActu = null;
         while (!sucesores.isEmpty()) {
-            f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
             sucesorActu=sucesores.poll();
+            f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
             NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (f), sucesorActu.getMovimiento(), profActual, f, nodoActual);
             if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                 if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
