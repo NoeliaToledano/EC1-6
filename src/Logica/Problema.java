@@ -50,35 +50,45 @@ public class Problema {
     public Queue<NodoArbol> crearListaNodos(Queue<Sucesor> sucesores,NodoArbol nodoActual,int profMax,String estrategia){
         Queue<NodoArbol> listaNodos = new LinkedList<NodoArbol>();
         int profActual= nodoActual.getD();
-
-        if(estrategia.equals("Profundidad") || estrategia.equals("Depth")){
-            listaNodos = Profundidad_Acotada(listaNodos, profActual, sucesores, nodoActual);
-        }
-
         if(profActual<profMax) { //si no he llegado a la profMax creo la lista de nodoArbol
+            float f = 0;
+            profActual++;
+            Sucesor sucesorActu;
+            while (!sucesores.isEmpty()) {
+                sucesorActu=sucesores.poll();
+                switch (estrategia){
 
-            switch (estrategia){
+                    case "Anchura" :
+                        f =(float)profActual;
+                        break;
+                    case "Breadth" :
+                        f =(float)profActual;
+                        break;
+                    case "Profundidad Acotada" :
+                        f=1/(1 + (float)profActual);
+                        break;
+                    case "Bounded Depth":
+                        f=1/(1 + (float)profActual);
+                        break;
+                    case "Costo Uniforme" :
+                        f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
+                        break;
+                    case "Uniform Cost" :
+                        f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
+                        break;
+                }
+                
+                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual);
+                if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
+                    if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
+                        listaNodos.add(posibleNodoArbol);
+                    nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
+                }else{ //sino  se he expandido antes lo inserto directamente
+                    listaNodos.add(posibleNodoArbol);
+                    nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
+                }
 
-                case "Anchura" :
-                    listaNodos = Anchura(listaNodos, profActual, sucesores, nodoActual);
-                    break;
-                case "Breadth" :
-                    listaNodos = Anchura(listaNodos, profActual, sucesores, nodoActual);
-                    break;
-                case "Profundidad Acotada" :
-                    listaNodos = Profundidad_Acotada(listaNodos, profActual, sucesores, nodoActual);
-                    break;
-                case "Bounded Depth":
-                    listaNodos = Profundidad_Acotada(listaNodos, profActual, sucesores, nodoActual);
-                    break;
-                case "Costo Uniforme" :
-                    listaNodos = Costo_Uniforme(listaNodos, profActual, sucesores, nodoActual);
-                    break;
-                case "Uniform Cost" :
-                    listaNodos = Costo_Uniforme(listaNodos, profActual, sucesores, nodoActual);
-                    break;
             }
-
             }
         return  listaNodos;
         }
@@ -98,66 +108,6 @@ public class Problema {
         }
 
         }
-        public Queue<NodoArbol> Anchura (Queue<NodoArbol> listaNodos, int profActual, Queue<Sucesor> sucesores, NodoArbol nodoActual){
-            float f;
-            profActual++;
-            Sucesor sucesorActu;
-            while (!sucesores.isEmpty()) {
-                f=(float)profActual;
-                sucesorActu=sucesores.poll();
-                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual);
-                if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
-                    if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
-                        listaNodos.add(posibleNodoArbol);
-                        nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-                }else{ //sino  se he expandido antes lo inserto directamente
-                    listaNodos.add(posibleNodoArbol);
-                    nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-                }
-
-            }
-            return listaNodos;
-        }
-
-    public Queue<NodoArbol> Profundidad_Acotada (Queue<NodoArbol> listaNodos, int profActual, Queue<Sucesor> sucesores, NodoArbol nodoActual){
-        float f;
-        profActual++;
-        Sucesor sucesorActu;
-        while (!sucesores.isEmpty()) {
-            f=1/(1 + (float)profActual);
-            sucesorActu=sucesores.poll();
-            NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual);
-            if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
-                if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
-                    listaNodos.add(posibleNodoArbol);
-                    nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-            }else{ //sino  se he expandido antes lo inserto directamente
-                listaNodos.add(posibleNodoArbol);
-                nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-            }
-
-        }
-        return listaNodos;
-    }
-    public Queue<NodoArbol> Costo_Uniforme (Queue<NodoArbol> listaNodos, int profActual, Queue<Sucesor> sucesores, NodoArbol nodoActual){
-        float f;
-        profActual++;
-        Sucesor sucesorActu = null;
-        while (!sucesores.isEmpty()) {
-            sucesorActu=sucesores.poll();
-            f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
-            NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (f), sucesorActu.getMovimiento(), profActual, f, nodoActual);
-            if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
-                if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())) //si la f es menor lo inserto
-                    listaNodos.add(posibleNodoArbol);
-                    nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-            }else{ //sino  se he expandido antes lo inserto directamente
-                listaNodos.add(posibleNodoArbol);
-                nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);
-            }
-
-        }
-        return listaNodos;
-    }
+       
 }
 
