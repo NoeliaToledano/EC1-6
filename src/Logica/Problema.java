@@ -83,7 +83,7 @@ public class Problema {
                 NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual);
                 if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                     if (estrategia.equals("Profundidad Acotada")){
-                        if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es menor lo inserto
+                        if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
                             listaNodos.add(posibleNodoArbol);
                             nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);}
                     }else if(estrategia.equals("Anchura") || estrategia.equals("Costo Uniforme")){
