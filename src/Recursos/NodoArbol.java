@@ -7,6 +7,7 @@ public class NodoArbol implements Comparable<NodoArbol>  {
     private String Accion;
     private int d;
     private float f;
+
     private NodoArbol padre;
     private static int nodosCreados=0;
 

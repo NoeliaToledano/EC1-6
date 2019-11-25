@@ -21,6 +21,7 @@ public class Estado {
     public boolean objetivo(){
         return cubo.objetivo();
     }
+    public double getHeuristica(){ return cubo.calcularHeuristica(); }
 
     public Queue<Sucesor> sucesores(){
         String ejes="BbDdLl";

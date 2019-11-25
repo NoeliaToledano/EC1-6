@@ -3,6 +3,7 @@ import Presentation.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.lang.Math;
 
 
 import java.util.Arrays;
@@ -16,7 +17,6 @@ public class Cube implements Cloneable {
     private int[][] RIGHT;
     private int[][] UP;
     private int size;
-    private String md5Sol;
 
     Cube(int[][] back, int[][] down, int[][] front, int[][] left, int[][] right, int[][] up) {
         this.BACK = back;
@@ -350,6 +350,33 @@ public class Cube implements Cloneable {
 
     public String toLineString() {
         return this.toString().replaceAll("[^0-6]", "");
+    }
+    public double calcularHeuristica(){
+        return  calcularEntropia(BACK)+calcularEntropia(DOWN)+
+                calcularEntropia(FRONT)+calcularEntropia(LEFT)+
+                calcularEntropia(RIGHT)+calcularEntropia(UP);
+    }
+    public double calcularEntropia(int[][] cara){
+        double entropia=0;
+        double NN=(cara.length*cara[0].length);
+        int contador[] =new int[6];
+
+        for(int x=0;x<cara.length;x++){
+            for(int y=0;y<cara[0].length;y++){
+                contador[cara[x][y]]++;
+
+            }
+        }
+        for(int c=0;c<6;c++){
+            if (contador[c]>0){
+                entropia = entropia + (double)contador[c]/NN * logN((double)contador[c]/NN,6.0);
+            }
+
+        }
+        return -entropia;
+    }
+    private double logN(double A,double B){
+        return  (Math.log(A) / Math.log(B));
     }
 
     public boolean objetivo() {

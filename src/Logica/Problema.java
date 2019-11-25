@@ -59,22 +59,22 @@ public class Problema {
                 switch (estrategia){
 
                     case "Anchura" :
-                        f =(float)profActual;
-                        break;
                     case "Breadth" :
                         f =(float)profActual;
                         break;
                     case "Profundidad Acotada" :
-                        f=1/(1 + (float)profActual);
-                        break;
                     case "Bounded Depth":
                         f=1/(1 + (float)profActual);
                         break;
                     case "Costo Uniforme" :
-                        f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
-                        break;
                     case "Uniform Cost" :
                         f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
+                        break;
+                    case "A*":
+                        f =(float)profActual + (float)sucesorActu.getEstado().getCubo().calcularHeuristica();
+                        break;
+                    case "Voraz":
+                        f =(float)sucesorActu.getEstado().getCubo().calcularHeuristica();
                         break;
                 }
 
@@ -86,7 +86,7 @@ public class Problema {
                         if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
                             listaNodos.add(posibleNodoArbol);
                             nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);}
-                    }else if(estrategia.equals("Anchura") || estrategia.equals("Costo Uniforme")){
+                    }else{
                         if(f<nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es menor lo inserto
                             listaNodos.add(posibleNodoArbol);
                             nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);}
