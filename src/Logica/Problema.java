@@ -24,7 +24,7 @@ public class Problema {
         return true;
     }
 
-    public void busqueda(String estrategia,int profMax){
+    public void busqueda(int estrategia,int profMax){
         NodoArbol nodoActual=null;
         Queue<Sucesor> sucesores;
         Queue<NodoArbol> listaNodos;
@@ -47,7 +47,7 @@ public class Problema {
         }
     }
 
-    public Queue<NodoArbol> crearListaNodos(Queue<Sucesor> sucesores,NodoArbol nodoActual,int profMax,String estrategia){
+    public Queue<NodoArbol> crearListaNodos(Queue<Sucesor> sucesores,NodoArbol nodoActual,int profMax,int estrategia){
         Queue<NodoArbol> listaNodos = new LinkedList<NodoArbol>();
         int profActual= nodoActual.getD();
         if(profActual<profMax) { //si no he llegado a la profMax creo la lista de nodoArbol
@@ -60,22 +60,19 @@ public class Problema {
                 coste=sucesorActu.getCoste() + nodoActual.getCosto_camino();
                 switch (estrategia){
 
-                    case "Anchura" :
-                    case "Breadth" :
+                    case 1:
                         f =(double)profActual;
                         break;
-                    case "Profundidad Acotada" :
-                    case "Bounded Depth":
+                    case 2:
                         f=1/(1 + (double)profActual);
                         break;
-                    case "Costo Uniforme" :
-                    case "Uniform Cost" :
+                    case 3:
                         f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
                         break;
-                    case "A*":
+                    case 4:
                         f =coste + (double)sucesorActu.getEstado().getCubo().calcularHeuristica();
                         break;
-                    case "Voraz":
+                    case 5:
                         f =(double)sucesorActu.getEstado().getCubo().calcularHeuristica();
                         break;
                 }
@@ -84,7 +81,7 @@ public class Problema {
 
                 NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), coste, sucesorActu.getMovimiento(), profActual,  f, nodoActual);
                 if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
-                    if (estrategia.equals("Profundidad Acotada")){
+                    if (estrategia==2){
                         if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
                             listaNodos.add(posibleNodoArbol);
                             nodosExpan.put(sucesorActu.getEstado().getCubo().toMD5(),f);}
