@@ -8,14 +8,14 @@ public class Problema {
     private Frontera frontera;
     private NodoArbol nodoInicial;
     private boolean solucion;
-    private HashMap<String, Float> nodosExpan;
+    private HashMap<String, Double> nodosExpan;
 
     public Problema(Cube cuboInicial) {
         this.frontera = Frontera.getFrontera();
-        this.nodoInicial= new NodoArbol(new Estado(cuboInicial),(float)0,"",0,(float)0,null);
+        this.nodoInicial= new NodoArbol(new Estado(cuboInicial),(float)0,"",0,0,null);
         this.solucion=false;
         this.frontera.insertar(nodoInicial);
-        this.nodosExpan= new HashMap<String, Float>();
+        this.nodosExpan= new HashMap<String, Double>();
         //nodosExpan.put(cuboInicial.toMD5(),(float)0);
 
     }
@@ -51,36 +51,38 @@ public class Problema {
         Queue<NodoArbol> listaNodos = new LinkedList<NodoArbol>();
         int profActual= nodoActual.getD();
         if(profActual<profMax) { //si no he llegado a la profMax creo la lista de nodoArbol
-            float f = 0;
+            double f = 0;
             profActual++;
             Sucesor sucesorActu;
+            float coste;
             while (!sucesores.isEmpty()) {
                 sucesorActu=sucesores.poll();
+                coste=sucesorActu.getCoste() + nodoActual.getCosto_camino();
                 switch (estrategia){
 
                     case "Anchura" :
                     case "Breadth" :
-                        f =(float)profActual;
+                        f =(double)profActual;
                         break;
                     case "Profundidad Acotada" :
                     case "Bounded Depth":
-                        f=1/(1 + (float)profActual);
+                        f=1/(1 + (double)profActual);
                         break;
                     case "Costo Uniforme" :
                     case "Uniform Cost" :
                         f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
                         break;
                     case "A*":
-                        f =(float)profActual + (float)sucesorActu.getEstado().getCubo().calcularHeuristica();
+                        f =coste + (double)sucesorActu.getEstado().getCubo().calcularHeuristica();
                         break;
                     case "Voraz":
-                        f =(float)sucesorActu.getEstado().getCubo().calcularHeuristica();
+                        f =(double)sucesorActu.getEstado().getCubo().calcularHeuristica();
                         break;
                 }
 
 
 
-                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), (sucesorActu.getCoste() + nodoActual.getCosto_camino()), sucesorActu.getMovimiento(), profActual, f, nodoActual);
+                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), coste, sucesorActu.getMovimiento(), profActual,  f, nodoActual);
                 if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                     if (estrategia.equals("Profundidad Acotada")){
                         if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
@@ -105,15 +107,16 @@ public class Problema {
 
     public void CrearSolucion(NodoArbol nodoObjetivo){
 
-        System.out.println("["+nodoObjetivo.getId()+"](["+nodoObjetivo.getAccion()+"]"+nodoObjetivo.getEstado().getCubo().toMD5()+",c="+nodoObjetivo.getCosto_camino()+",p="+nodoObjetivo.getD()+",f="+nodoObjetivo.getF()+")");
+        System.out.println("["+nodoObjetivo.getId()+"](["+nodoObjetivo.getAccion()+"]"+nodoObjetivo.getEstado().getCubo().toMD5()+",c="+nodoObjetivo.getCosto_camino()+",p="+nodoObjetivo.getD() +",h="+ nodoObjetivo .getH()  + ",f="+nodoObjetivo.getF()+")");
 
         if (!nodoObjetivo.EsPadre()) {
             NodoArbol nodo=nodoObjetivo.getPadre();
             while (!nodo.EsPadre()) {
-                System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() + ",f=" + nodo.getF() + ")");
+                System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ nodo.getH()  + ",f=" + nodo.getF() + ")");
                 nodo = nodo.getPadre();
             }
-            System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() + ",f=" + nodo.getF() + ")");
+            System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ nodo.getH()  + ",f=" + nodo.getF() + ")");
+
         }
 
         }
