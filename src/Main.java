@@ -19,10 +19,10 @@ public class Main {
         System.out.println("Introduzca profundidad max:");
         int profMax = keyboard.nextInt();
 
-        try (Reader reader = new FileReader("cubo10x10.json")) {
+        try (Reader reader = new FileReader("cuboEjemplo.json")) {
             Cube cube = gson.fromJson(reader, Cube.class);
             cube.setSize(cube.getDOWN().length);// mega importante
-            cube.movimientos("B1d0L7l5");
+
             //System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube, estrategia);
             miProblema.busqueda(estrategia,profMax);
