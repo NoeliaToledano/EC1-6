@@ -10,14 +10,25 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int estrategia = 0, profMax = 0;
         GUIForm frame=new GUIForm();
         Gson gson = new Gson();
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Introduzca número estrategia:");
+
         System.out.println(" 1. Anchura \n 2. Profundidad \n 3. Costo Uniforme \n 4. A* \n 5. Voraz");
-        int estrategia = keyboard.nextInt();
-        System.out.println("Introduzca profundidad max:");
-        int profMax = keyboard.nextInt();
+        try{
+        do {
+            System.out.println("Introduzca número estrategia:");
+            estrategia = keyboard.nextInt();
+        }while(estrategia<1 || estrategia>5);
+            do {
+                System.out.println("Introduzca profundidad max:");
+                profMax = keyboard.nextInt();
+            }while(profMax % 1 != 0);
+
+        } catch (Exception e) {
+            System.out.println("Carácter introducido no válido.");
+        }
 
         try (Reader reader = new FileReader("cuboEjemplo.json")) {
             Cube cube = gson.fromJson(reader, Cube.class);
