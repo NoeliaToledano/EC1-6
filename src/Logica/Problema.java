@@ -10,9 +10,27 @@ public class Problema {
     private boolean solucion;
     private HashMap<String, Double> nodosExpan;
 
-    public Problema(Cube cuboInicial) {
+    public Problema(Cube cuboInicial, int estrategia) {
+        double f=0.0;
         this.frontera = Frontera.getFrontera();
-        this.nodoInicial= new NodoArbol(new Estado(cuboInicial),(float)0,"",0,0,null);
+        Estado estado = new Estado(cuboInicial);
+        switch(estrategia){
+            case 1:
+                f = 0.0;
+                break;
+            case 2:
+                f=1/(1 + 0.0);
+                break;
+            case 3:
+                f= 0.0;
+                break;
+            case 4:
+                f = estado.getHeuristica();
+                break;
+            case 5:
+                f =estado.getHeuristica();
+                break;}
+        this.nodoInicial= new NodoArbol(estado,(float)0,"",0, f,null);
         this.solucion=false;
         this.frontera.insertar(nodoInicial);
         this.nodosExpan= new HashMap<String, Double>();

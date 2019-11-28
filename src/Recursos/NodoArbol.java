@@ -17,9 +17,10 @@ public class NodoArbol implements Comparable<NodoArbol>  {
         this.Costo_camino = costo_camino;
         this.Accion = accion;
         this.d = d;
-        this.f = f;
         this.padre=padre;
         this.h=estado.getHeuristica();
+        this.f=f;
+
 
     }
 

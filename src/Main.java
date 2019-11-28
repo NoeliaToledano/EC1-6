@@ -1,16 +1,11 @@
-import java.io.*;
-
-import Logica.Frontera;
 import Logica.Problema;
-import Presentation.*;
-import Recursos.*;
+import Presentation.GUIForm;
+import Recursos.Cube;
+import com.google.gson.Gson;
 
-
-import com.google.gson.*;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.ArrayList;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +14,7 @@ public class Main {
         Gson gson = new Gson();
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Introduzca número estrategia:");
-        System.out.println(" 1. Anchura \n 2. Profundidad \n 3. Coste Uniforme \n 4. A* \n 5. Voraz");
+        System.out.println(" 1. Anchura \n 2. Profundidad \n 3. Costo Uniforme \n 4. A* \n 5. Voraz");
         int estrategia = keyboard.nextInt();
         System.out.println("Introduzca profundidad max:");
         int profMax = keyboard.nextInt();
@@ -29,7 +24,7 @@ public class Main {
             cube.setSize(cube.getDOWN().length);// mega importante
 
             //System.out.println(cube.objetivo());
-            Problema miProblema = new Problema(cube);
+            Problema miProblema = new Problema(cube, estrategia);
             miProblema.busqueda(estrategia,profMax);
 
 
