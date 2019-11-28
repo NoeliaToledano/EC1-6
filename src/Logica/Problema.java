@@ -122,15 +122,16 @@ public class Problema {
 
     public void CrearSolucion(NodoArbol nodoObjetivo){
 
-        System.out.println("["+nodoObjetivo.getId()+"](["+nodoObjetivo.getAccion()+"]"+nodoObjetivo.getEstado().getCubo().toMD5()+",c="+nodoObjetivo.getCosto_camino()+",p="+nodoObjetivo.getD() +",h="+ nodoObjetivo .getH()  + ",f="+nodoObjetivo.getF()+")");
+
+        System.out.println("["+nodoObjetivo.getId()+"](["+nodoObjetivo.getAccion()+"]"+nodoObjetivo.getEstado().getCubo().toMD5()+",c="+nodoObjetivo.getCosto_camino()+",p="+nodoObjetivo.getD() +",h="+ (double)Math.round(nodoObjetivo.getH() * 100d) / 100d  + ",f="+ (double)Math.round(nodoObjetivo.getF() * 100d) / 100d+")");
 
         if (!nodoObjetivo.EsPadre()) {
             NodoArbol nodo=nodoObjetivo.getPadre();
             while (!nodo.EsPadre()) {
-                System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ nodo.getH()  + ",f=" + nodo.getF() + ")");
+                System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ (double)Math.round(nodo.getH() * 100d) / 100d  + ",f=" + (double)Math.round(nodo.getF() * 100d) / 100d + ")");
                 nodo = nodo.getPadre();
             }
-            System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ nodo.getH()  + ",f=" + nodo.getF() + ")");
+            System.out.println("[" + nodo.getId() + "]([" + nodo.getAccion() + "]" + nodo.getEstado().getCubo().toMD5() + ",c=" + nodo.getCosto_camino() + ",p=" + nodo.getD() +",h="+ (double)Math.round(nodo.getH() * 100d) / 100d + ",f=" + (double)Math.round(nodo.getF() * 100d) / 100d + ")");
 
         }
 

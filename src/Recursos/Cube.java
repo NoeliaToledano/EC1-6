@@ -352,9 +352,10 @@ public class Cube implements Cloneable {
         return this.toString().replaceAll("[^0-6]", "");
     }
     public double calcularHeuristica(){
-        return  calcularEntropia(BACK)+calcularEntropia(DOWN)+
+
+        return  Math.abs(calcularEntropia(BACK)+calcularEntropia(DOWN)+
                 calcularEntropia(FRONT)+calcularEntropia(LEFT)+
-                calcularEntropia(RIGHT)+calcularEntropia(UP);
+                calcularEntropia(RIGHT)+calcularEntropia(UP));
     }
     public double calcularEntropia(int[][] cara){
         double entropia=0;
