@@ -1,7 +1,6 @@
 package Logica;
 
 import Recursos.*;
-
 import java.util.*;
 
 public class Problema {
@@ -11,35 +10,14 @@ public class Problema {
     private HashMap<String, Double> nodosExpan;
 
     public Problema(Cube cuboInicial, int estrategia) {
-        double f=0.0;
         this.frontera = Frontera.getFrontera();
         Estado estado = new Estado(cuboInicial);
-        switch(estrategia){
-            case 1:
-                f = 0.0;
-                break;
-            case 2:
-                f=1/(1 + 0.0);
-                break;
-            case 3:
-                f= 0.0;
-                break;
-            case 4:
-                f = estado.getHeuristica();
-                break;
-            case 5:
-                f =estado.getHeuristica();
-                break;}
-        this.nodoInicial= new NodoArbol(estado,(float)0,"",0, f,null);
+        this.nodoInicial= new NodoArbol(estado, estrategia);
         this.solucion=false;
         this.frontera.insertar(nodoInicial);
         this.nodosExpan= new HashMap<String, Double>();
         //nodosExpan.put(cuboInicial.toMD5(),(float)0);
 
-    }
-
-    public boolean solucion(){
-        return true;
     }
 
     public void busqueda(int estrategia,int profMax){
@@ -72,32 +50,11 @@ public class Problema {
             double f = 0;
             profActual++;
             Sucesor sucesorActu;
-            float coste;
+
             while (!sucesores.isEmpty()) {
                 sucesorActu=sucesores.poll();
-                coste=sucesorActu.getCoste() + nodoActual.getCosto_camino();
-                switch (estrategia){
+                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), sucesorActu.getMovimiento(), profActual, sucesorActu.getCoste(), nodoActual, estrategia);
 
-                    case 1:
-                        f =(double)profActual;
-                        break;
-                    case 2:
-                        f=1/(1 + (double)profActual);
-                        break;
-                    case 3:
-                        f= sucesorActu.getCoste() + nodoActual.getCosto_camino();
-                        break;
-                    case 4:
-                        f =coste + (double)sucesorActu.getEstado().getCubo().calcularHeuristica();
-                        break;
-                    case 5:
-                        f =(double)sucesorActu.getEstado().getCubo().calcularHeuristica();
-                        break;
-                }
-
-
-
-                NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), coste, sucesorActu.getMovimiento(), profActual,  f, nodoActual);
                 if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
                     if (estrategia==2){
                         if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
@@ -115,9 +72,9 @@ public class Problema {
                 }
 
             }
-            }
-        return  listaNodos;
         }
+        return  listaNodos;
+    }
 
 
     public void CrearSolucion(NodoArbol nodoObjetivo){

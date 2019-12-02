@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         int estrategia = 0, profMax = 0;
-        GUIForm frame=new GUIForm();
         Gson gson = new Gson();
         Scanner keyboard = new Scanner(System.in);
 
@@ -31,14 +30,13 @@ public class Main {
         }
 
         try (Reader reader = new FileReader("cuboEjemplo.json")) {
+
             Cube cube = gson.fromJson(reader, Cube.class);
             cube.setSize(cube.getDOWN().length);// mega importante
 
             //System.out.println(cube.objetivo());
             Problema miProblema = new Problema(cube, estrategia);
             miProblema.busqueda(estrategia,profMax);
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

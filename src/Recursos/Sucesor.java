@@ -31,7 +31,6 @@ public class Sucesor {
         this.movimiento = movimiento;
     }
 
-
     public void setCoste(int coste) {
         this.coste = coste;
     }

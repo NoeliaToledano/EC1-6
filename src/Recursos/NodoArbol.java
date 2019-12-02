@@ -1,6 +1,7 @@
 package Recursos;
 
 public class NodoArbol implements Comparable<NodoArbol>  {
+
     private int id;
     private Estado estado;
     private float Costo_camino;
@@ -11,20 +12,49 @@ public class NodoArbol implements Comparable<NodoArbol>  {
     private NodoArbol padre;
     private static int nodosCreados=0;
 
-    public NodoArbol(Estado estado, float costo_camino, String accion, int d, double f, NodoArbol padre) {
+
+    public NodoArbol(Estado estado, String accion, int d, int coste, NodoArbol padre, int estrategia) {
         this.id= nodosCreados++;
         this.estado = estado;
-        this.Costo_camino = costo_camino;
+        this.Costo_camino = coste + padre.getCosto_camino();//peta en padre
         this.Accion = accion;
         this.d = d;
         this.padre=padre;
         this.h=estado.getHeuristica();
-        this.f=f;
-
-
+        this.f=calcularF(estrategia, coste);
+    }
+    public NodoArbol(Estado estado, int estrategia){
+        this.id= nodosCreados++;
+        this.estado = estado;
+        this.Costo_camino=0;
+        this.d=0;
+        this.h=estado.getHeuristica();
+        this.f=calcularF(estrategia, 0);
     }
 
+    public double calcularF(int estrategia, int coste){
+        double f=0;
+        switch (estrategia){
+            case 1:
+                f =(double)d;
+                break;
+            case 2:
+                f=1/(1 + (double)d);
+                break;
+            case 3:
+                f = coste + Costo_camino;
+                break;
+            case 4:
+                f = coste + Costo_camino + h;
+                break;
+            case 5:
+                f = h;
+                break;
+        }
+        return f;
+    }
     public boolean EsPadre () { return Costo_camino == 0.0; }
+
     public Estado getEstado() {
         return estado;
     }
@@ -80,6 +110,7 @@ public class NodoArbol implements Comparable<NodoArbol>  {
     public void setId(int id) {
         this.id = id;
     }
+
     @Override
     public int compareTo(NodoArbol nodo1) {
         if(this.f > nodo1.getF()) {
