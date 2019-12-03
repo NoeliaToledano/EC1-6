@@ -9,8 +9,8 @@ public class Problema {
     private NodoArbol nodoInicial;
     private boolean solucion;
     private HashMap<String, Double> nodosExpan;
-
-    public Problema(Cube cuboInicial, int estrategia) {
+    private boolean poda;
+    public Problema(Cube cuboInicial, int estrategia, boolean poda) {
         double f=0.0;
         this.frontera = Frontera.getFrontera();
         Estado estado = new Estado(cuboInicial);
@@ -19,7 +19,7 @@ public class Problema {
                 f = 0.0;
                 break;
             case 2:
-                f=1/(1 + 0.0);
+                f=1.0;
                 break;
             case 3:
                 f= 0.0;
@@ -34,6 +34,7 @@ public class Problema {
         this.solucion=false;
         this.frontera.insertar(nodoInicial);
         this.nodosExpan= new HashMap<String, Double>();
+        this.poda=poda;
         //nodosExpan.put(cuboInicial.toMD5(),(float)0);
 
     }
@@ -98,7 +99,7 @@ public class Problema {
 
 
                 NodoArbol posibleNodoArbol= new NodoArbol(sucesorActu.getEstado(), coste, sucesorActu.getMovimiento(), profActual,  f, nodoActual);
-                if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5())){ //miro si lo he expandido antes
+                if(nodosExpan.containsKey(sucesorActu.getEstado().getCubo().toMD5()) && poda){ //miro si lo he expandido antes y si hay poda
                     if (estrategia==2){
                         if(f>nodosExpan.get(sucesorActu.getEstado().getCubo().toMD5())){//si la f es mayor lo inserto
                             listaNodos.add(posibleNodoArbol);
