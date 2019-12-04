@@ -28,11 +28,11 @@ public class Main {
                     System.out.println("Introduzca número estrategia:");
                     estrategia = keyboard.nextInt();
                 } while (estrategia < 1 || estrategia > 5);
-                do {
+
                     System.out.println("Introduzca profundidad max:");
                     profMax = keyboard.nextInt();
                     profMax = Math.abs(profMax);
-                } while (profMax % 1 != 0);
+
                 do {
                     System.out.println("¿Poda? \n Si-1 \n No-0");
                     poda = keyboard.nextInt();
