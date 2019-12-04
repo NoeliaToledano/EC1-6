@@ -32,7 +32,6 @@ public class Main {
                     System.out.println("Introduzca profundidad max:");
                     profMax = keyboard.nextInt();
                     profMax = Math.abs(profMax);
-                    System.out.println(profMax);
                 } while (profMax % 1 != 0);
                 do {
                     System.out.println("¿Poda? \n Si-1 \n No-0");
