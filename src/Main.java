@@ -1,5 +1,4 @@
 import Logica.Problema;
-import Presentation.GUIForm;
 import Recursos.Cube;
 import com.google.gson.Gson;
 
@@ -12,7 +11,6 @@ public class Main {
     public static void main(String[] args) {
         int estrategia = 0, profMax = 0, poda = 2;
         boolean sePoda = true;
-        GUIForm frame = new GUIForm();
         Gson gson = new Gson();
         Scanner keyboard = new Scanner(System.in);
         String rutaJson = "";  //si lo haceis manual poner aqui el nombre del json
