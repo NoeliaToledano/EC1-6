@@ -16,10 +16,12 @@ public class Main {
         Gson gson = new Gson();
         Scanner keyboard = new Scanner(System.in);
         String rutaJson = "";  //si lo haceis manual poner aqui el nombre del json
-        if (args.length < 1) {
-            System.out.println("Error argumento JSON");
-        } else {
-            rutaJson=args[1];
+      //  if (args.length < 1) {
+            //System.out.println("Error argumento JSON");
+       // } else {
+          //  rutaJson=args[1];
+
+            rutaJson = "cubo3x3.json";
             System.out.println(" 1. Anchura \n 2. Profundidad \n 3. Costo Uniforme \n 4. A* \n 5. Voraz");
             try {
                 do {
@@ -29,6 +31,8 @@ public class Main {
                 do {
                     System.out.println("Introduzca profundidad max:");
                     profMax = keyboard.nextInt();
+                    profMax = Math.abs(profMax);
+                    System.out.println(profMax);
                 } while (profMax % 1 != 0);
                 do {
                     System.out.println("¿Poda? \n Si-1 \n No-0");
@@ -56,4 +60,3 @@ public class Main {
             }
         }
     }
-}
