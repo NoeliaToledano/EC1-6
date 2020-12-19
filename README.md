@@ -1,2 +1,4 @@
-# EC1-6
-Laboratorio de Sistemas Inteligentes **Prueba**
+# EC1-6 (Grupo)
+Laboratorio de Sistemas Inteligentes
+
+Implementación de un artefacto software N-Cubo de Rubick
